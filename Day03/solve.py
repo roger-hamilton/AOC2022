@@ -16,12 +16,8 @@ def part1(data: list[tuple[set[str], set[str]]]):
     return sum([priority(x) for x in [list(a.intersection(b))[0] for (a, b) in data]])
 
 def part2(data: list[tuple[set[str], set[str]]]):
-    # merge the 2 sets
     d2 = [a.union(b) for (a, b) in data]
-    # group in chunks of 3
-    d3 = [d2[i:i+3] for i in range(0, len(d2), 3)]
-    
-    return sum([priority(x) for x in [list(set.intersection(*x))[0] for x in d3]])
+    return sum([priority(list(set.intersection(*d2[i:i+3]))[0]) for i in range(0, len(d2), 3)])
 
 data = readInput('input.txt')
 
