@@ -13,14 +13,11 @@ def readInput (fname: str):
     with open(fname) as f:
         return [parseLine(x) for x in f.read().split('\n')]
 
-def isSubsetOf(a: set, b: set):
-    return a.issubset(b) or b.issubset(a)
-
 def part1(data: list[tuple[set, set]]):
-    return len(list(filter(lambda x: isSubsetOf(x[0], x[1]), data)))
+    return len([1 for (a, b) in data if a.issubset(b) or b.issubset(a)])
 
-def part2(data: list[tuple[set[str], set[str]]]):
-    return len(list(filter(lambda x: len(set(x[0]).intersection(set(x[1]))) > 0, data)))
+def part2(data: list[tuple[set, set]]):
+    return len([1 for (a, b) in data if len(a.intersection(b)) > 0])
 
 data = readInput('input.txt')
 
