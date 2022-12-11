@@ -1,5 +1,5 @@
 import os
-from typing import Callable, Literal, Optional
+from typing import Callable, Optional
 
 class Monkey:
     def __init__(self, items: list[int], op: Callable[[int], int], test_val: int, if_true: int, if_false: int):
@@ -12,7 +12,7 @@ class Monkey:
     def accept_item(self, item: int):
         self.items.append(item)
 
-    def process_items(self, div: int = 3) -> list[tuple[int, int]]:
+    def process_items(self, div: int = 3):
         res = [(i, self.test(i)) for i in [self.op(x) // div for x in self.items]]
         self.inspeced_count += len(self.items)
         self.items = []
@@ -41,14 +41,13 @@ def read_input (fname: str) -> list[Monkey]:
 def take_turn(monkeys: list[Monkey], div: int = 3, common_div: Optional[int] = None):
     for m in monkeys:
         for (item, to_monkey) in m.process_items(div):
-            item //= div
             if common_div != None:
                 item %= common_div
             monkeys[to_monkey].accept_item(item)
 
 def part1(data: list[Monkey]):
     for _ in range(20):
-        take_turn(data)
+        take_turn(data, 3, None)
 
     data.sort(key=lambda x: x.inspeced_count, reverse=True)
     return data[0].inspeced_count * data[1].inspeced_count
