@@ -91,4 +91,4 @@ def part2(data: Input):
 data = read_input('input.txt')
 
 print(f"Part 1: {part1(data)}")
-print(f"Part 2: {part1(data)}")
+print(f"Part 2: {part2(data)}")
